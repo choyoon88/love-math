@@ -1,11 +1,11 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // ^action the function inside this {} once the domcontent is loaded
     let buttons = document.getElementsByTagName("button");
     // ^get all the tag name button as an array
 
     // "let button of buttons" are more modern than "i = 0; i < buttons.length; i++"
     for (let button of buttons) {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             if (this.getAttribute("data-type") === "submit") { //'this' refers to the button just clicked
                 checkAnswer();
             } else {
@@ -46,8 +46,10 @@ function checkAnswer() {
 
     if (isCorrect) {
         alert("Hey! You got it right! :D");
+        incrementScore();
     } else {
         alert(`awwww... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+        incrementWrongAnswer();
     }
 
     runGame(calculatedAnswer[1]);
@@ -72,12 +74,20 @@ function calculateCorrectAnswer() {
     }
 }
 
+/**
+ * Gets the current score from the DOM and increments it by 1
+ */
 function incrementScore() {
-
+    let oldScore = parseInt(document.getElementById("score").innerText);
+    document.getElementById('score').innerText = ++oldScore; //compound addtion operator means add 1 to the value. If putting ++ after, then it will get the id of score and set the innertext to the oldscore var and will add one to the oldscore
 }
 
+/**
+ * Gets the current tally of incorrect answers from the DOM and increments it by 1
+ */
 function incrementWrongAnswer() {
-
+    let oldScore = parseInt(document.getElementById("incorrect").innerText);
+    document.getElementById('incorrect').innerText = ++oldScore;
 }
 
 function displayAdditionQuestion(operand1, operand2) {
